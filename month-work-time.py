@@ -1,3 +1,5 @@
+import calendar
+
 import requests
 import json
 import time
@@ -7,7 +9,7 @@ from datetime import datetime
 # token
 # 月
 # 月开始 月结束
-token = ""
+token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXN0SWQiOiJVY1IxNmgxUmZCb0FaQ2ZiQjJ1M2hVcUFySFNqQXFtZTIrUVV5ZkZ0Uzc3VVpLblp3MmQyYUlHbHZGcUlFMjAwZm45cDc1OURxbEEwY2dlM0I4UWgvRDZPS3NkeW8xbUlLaUpMTDNUaW4rVkhGVmtpRCtrSnoxN2hRMGIrZDdhekxpdVJZMHBvTjExNU4rVFpXcGg3VmxOblAyRUU4OENGdWxtODhKbHYzbG89IiwidXNlcklkIjoiSkFTbml5OEdpRC9xTmlWTUlNejVzL3p3bDlHRHkzWDRIaGxOWmp5VTlDMTljYWJmSmtPUGVFZHFMUVBtSzJDa3Rvd2dvd0JjNGlmZkQ0NUlEOUFodkgreFFpaHB0L0tIYTd5TnBoY0RMR0w4Y3FTaEJOR0dsblZHNllCdW5WWnNDVVFydjc5eUFUZmQ2eWVCcGdSK2hzTjMvdVpvdHp0alU5Q2ZEcGhIMER3PSIsImVtcElkIjoiUkJkNldnOUp5M0Z4K0pVU2VWOWxXcXc0UEhFcllvUUhuUmNHKzZMYmVPbTdZMmZoNTU2MDhEVXh4S1NQMDJ2UzFxYkM3L3M2MXN0RVI2RlMwSllMZnRYaGp0RnAwdDBYTWlYbGh5cUx3ZnRMdk1adm5wWEZCZHVvaHVOU2hweHMycmdvcjBjU2lIOXIrdGtTNnNZOG45ZWpoS0hlVlZBSy8vejg0a25makdvPSIsInRva2VuVHlwZSI6ImVtcFdlYiIsInRpbWVzdGFtcCI6MTY0NDIyOTYyMjI3M30.bNQieSnrwm5v1iwKgHSu2IWUfvHeUXZfytR0myv2MfQ"
 month = "2022-01"
 monthDayStart = 1
 monthDayEnd = 31
@@ -54,14 +56,23 @@ def calculate(start, end):
     return float(hour)
 
 
-# Press the green button in the gutter to run the script.
+def calculateHol(start, end):
+    if start == '' or end == '':
+        return 0
+    startTime = datetime.strptime(start, "%Y-%m-%d %H:%M:%S")
+    endTime = datetime.strptime(end, "%Y-%m-%d %H:%M:%S")
+    return (endTime - startTime).total_seconds() / 3600
+
+
 if __name__ == '__main__':
 
     dayNum = 0
     hourNum = 0
+    holNum = 0
 
     for i in range(monthDayStart, monthDayEnd):
         response = _get_request(json.dumps({"dt": month + "-" + str(i) + " 00:00:00"}))
+        attHolApplyList = response['result']['data']['attHolApplyList']
         dtDetailList = response['result']['data']['attEmpDetail']['dtDetailList']
         if dtDetailList[0]['sbTitle'] == "上班":
             dayNum += 1
@@ -70,8 +81,12 @@ if __name__ == '__main__':
             workTime = calculate(start, end)
             hourNum += workTime
             print("打卡时间" + start + "---" + end + "工作时长:" + str(workTime))
+        if attHolApplyList is not None:
+            for item in attHolApplyList:
+                holNum += calculateHol(item['startTime'], item['endTime'])
         time.sleep(0.2)
     print("工作天数", dayNum)
     print("工作小时", hourNum)
     print("总需要 day*8", dayNum * 8)
     print("总需要加班 day*9", dayNum * 9)
+    print("请假时长", holNum)
