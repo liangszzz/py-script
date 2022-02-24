@@ -9,10 +9,10 @@ from datetime import datetime
 # token
 # 月
 # 月开始 月结束
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXN0SWQiOiJVY1IxNmgxUmZCb0FaQ2ZiQjJ1M2hVcUFySFNqQXFtZTIrUVV5ZkZ0Uzc3VVpLblp3MmQyYUlHbHZGcUlFMjAwZm45cDc1OURxbEEwY2dlM0I4UWgvRDZPS3NkeW8xbUlLaUpMTDNUaW4rVkhGVmtpRCtrSnoxN2hRMGIrZDdhekxpdVJZMHBvTjExNU4rVFpXcGg3VmxOblAyRUU4OENGdWxtODhKbHYzbG89IiwidXNlcklkIjoiSkFTbml5OEdpRC9xTmlWTUlNejVzL3p3bDlHRHkzWDRIaGxOWmp5VTlDMTljYWJmSmtPUGVFZHFMUVBtSzJDa3Rvd2dvd0JjNGlmZkQ0NUlEOUFodkgreFFpaHB0L0tIYTd5TnBoY0RMR0w4Y3FTaEJOR0dsblZHNllCdW5WWnNDVVFydjc5eUFUZmQ2eWVCcGdSK2hzTjMvdVpvdHp0alU5Q2ZEcGhIMER3PSIsImVtcElkIjoiUkJkNldnOUp5M0Z4K0pVU2VWOWxXcXc0UEhFcllvUUhuUmNHKzZMYmVPbTdZMmZoNTU2MDhEVXh4S1NQMDJ2UzFxYkM3L3M2MXN0RVI2RlMwSllMZnRYaGp0RnAwdDBYTWlYbGh5cUx3ZnRMdk1adm5wWEZCZHVvaHVOU2hweHMycmdvcjBjU2lIOXIrdGtTNnNZOG45ZWpoS0hlVlZBSy8vejg0a25makdvPSIsInRva2VuVHlwZSI6ImVtcFdlYiIsInRpbWVzdGFtcCI6MTY0NDIyOTYyMjI3M30.bNQieSnrwm5v1iwKgHSu2IWUfvHeUXZfytR0myv2MfQ"
-month = "2022-01"
+token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXN0SWQiOiJCM091RllyVUR0RmJwTUhFZ0F2QXFENGUvZ2lKQmE1ZlhGTWlNSnh2M0t2RVRLelYrK25ZQmp4T0R1RmIyZkh2YTNuQUtHcENTMlovaVBqRmFJNWFkVnNWbmE4SUhITFRtcVJSZ085RitsVlkxLy8rdnJ1Z3g0UDBMZ2MrT2RJMVN1M2lkRGVPVDVSSFo0aGxKTmVab2MvTG5VN3p0bFE1T2JKd1E3QnVpbHc9IiwidXNlcklkIjoiaHFVZmtEc0pmYjJBZkpLTmxDUko0bVRXcmN6eXF5V1I1N000TytNekJKNVFhQkVRWmYzMjNwdENablVyK3lTQ1hnT1V1ZXNBS1Y5UmJibHlKWWN5NWhLYUU3dTdIKzNOaDZmRUNIbzFVamhFL0RDRzhKSzFmTFJualpLWkpLa3VHN0Q1ZGZNZ0lnUGI5cGNFdlkvd1BHb0ZUcGh0MFU1SUZlVXc5WTFXbzRvPSIsImVtcElkIjoiTVNFL0p3OHVQdzI2aE40VkoxVXg3Q21SRmZOTHNsOHZ6bGZyQXAzTHZhRHRiWEkyQXphWENUS2NDRDFOb2hXY3E4eVh5Y0hKcFV3K2hqY3FoekkrdGl0d29aR2pHTHFKdjVhdUpmaXhiOVE3a2hGbis4c1lyb1p1VG53QTJzSTRZakVKOGRkd1JOTFY2Y1R3VklBdS83Q0xQQUtRMU9aZTZGZjVwQkYrakpFPSIsInRva2VuVHlwZSI6ImVtcFdlYiIsInRpbWVzdGFtcCI6MTY0NTcxMTYyMDM3Nn0.pSYnz2DL3d8NEjrWHu5J4lWJSNCRBZglp00E_hdUP5s"
+month = "2022-02"
 monthDayStart = 1
-monthDayEnd = 31
+monthDayEnd = 28
 
 
 def _get_request(data: object) -> object:
@@ -87,6 +87,8 @@ if __name__ == '__main__':
         time.sleep(0.2)
     print("工作天数", dayNum)
     print("工作小时", hourNum)
-    print("总需要 day*8", dayNum * 8)
-    print("总需要加班 day*9", dayNum * 9)
+    print("总需要 工作天数*8", dayNum * 8)
+    print("总需要加班 工作天数*9", dayNum * 9)
+    print("缺少小时 工作天数*8-工作小时", dayNum * 8 - hourNum)
+    print("缺少加班小时 工作天数*9-工作小时", dayNum * 9 - hourNum)
     print("请假时长", holNum)
