@@ -9,10 +9,10 @@ from datetime import datetime
 # token
 # 月
 # 月开始 月结束
-token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXN0SWQiOiJCM091RllyVUR0RmJwTUhFZ0F2QXFENGUvZ2lKQmE1ZlhGTWlNSnh2M0t2RVRLelYrK25ZQmp4T0R1RmIyZkh2YTNuQUtHcENTMlovaVBqRmFJNWFkVnNWbmE4SUhITFRtcVJSZ085RitsVlkxLy8rdnJ1Z3g0UDBMZ2MrT2RJMVN1M2lkRGVPVDVSSFo0aGxKTmVab2MvTG5VN3p0bFE1T2JKd1E3QnVpbHc9IiwidXNlcklkIjoiaHFVZmtEc0pmYjJBZkpLTmxDUko0bVRXcmN6eXF5V1I1N000TytNekJKNVFhQkVRWmYzMjNwdENablVyK3lTQ1hnT1V1ZXNBS1Y5UmJibHlKWWN5NWhLYUU3dTdIKzNOaDZmRUNIbzFVamhFL0RDRzhKSzFmTFJualpLWkpLa3VHN0Q1ZGZNZ0lnUGI5cGNFdlkvd1BHb0ZUcGh0MFU1SUZlVXc5WTFXbzRvPSIsImVtcElkIjoiTVNFL0p3OHVQdzI2aE40VkoxVXg3Q21SRmZOTHNsOHZ6bGZyQXAzTHZhRHRiWEkyQXphWENUS2NDRDFOb2hXY3E4eVh5Y0hKcFV3K2hqY3FoekkrdGl0d29aR2pHTHFKdjVhdUpmaXhiOVE3a2hGbis4c1lyb1p1VG53QTJzSTRZakVKOGRkd1JOTFY2Y1R3VklBdS83Q0xQQUtRMU9aZTZGZjVwQkYrakpFPSIsInRva2VuVHlwZSI6ImVtcFdlYiIsInRpbWVzdGFtcCI6MTY0NTcxMTYyMDM3Nn0.pSYnz2DL3d8NEjrWHu5J4lWJSNCRBZglp00E_hdUP5s"
-month = "2022-02"
+token = "vMG5ZTk5lbG81NmZwTkdpWENxcWwwQjJsbXk5TU9lbnR4ZHVnbGlYMGVUNXZTWmlCVDBqQkkybG9uUzdzTlU3dnozejB3NTZ0bjQ5THg5Z3Q2TzdQMjRtVVBkamZzRFY0NEpvWVg4aUdNSDB5ekVZTmNKbzdUWjNOdEk9IiwidXNlcklkIjoiZnBvekZpRW5FaW9uYzFaZlhmS1hEU01uTnVpK0NGTzcyb2ZiRjJ6d0xqS2Y3RkU1ZkVSTTVCYmY4akg3VHBMaUZmcjBNSlJoaFh2ZDMzclhrTGY5Ym1MZzY4TjdMc0o4WnJnanJHQ1QveUpieVp1SjFUMmFmLzl5cEdmWWsraWgvdS9jdkttUUhyTXVIcnNHTjUrUzFZQmNXY0x5UyttejA1ZEJ6cEx0YUpnPSIsImVtcElkIjoiTTl6Y3hQNnhqYWh1SWxOSnJJQXJyUjdFSzlxTmRVZEtEdko1WFVaSFN1MFlVNUJMQlVEdGJkcHBMTEdZSjNOMmxIWE9WSjZVOTIwNVN3cUlmUVBvVnhGSXlYWmdhY2JacHNWWWVydnNucE1QWkpsOVpyZjNpTU52N1pkV3cwRzZGL29GQW5LMFljN1loVlJ0RDEzTGhwU0FOL2NHRnpPcGYyeUdHZ1lhNVo4PSIsInRva2VuVHlwZSI6ImVtcFdlYiIsInRpbWVzdGFtcCI6MTY0NzUwNDY4NzQ0OX0.Hyjy8qGXwxnaEaj4T7LsLOeHpUbj-QTOxu5MGxUZMAw"
+month = "2022-03"
 monthDayStart = 1
-monthDayEnd = 28
+monthDayEnd = 16
 
 
 def _get_request(data: object) -> object:
@@ -27,7 +27,7 @@ def _get_request(data: object) -> object:
         "Referer": "https://ics.chinasoftinc.com:18010/",
         "Accept-Language": "en,zh-CN;q=0.9,zh;q=0.8",
     }
-    response = requests.post("https://ics.chinasoftinc.com:18010/ehr_saas/web/attEmpLog/getAttEmpLogByEmpId2.empweb?",
+    response = requests.post("http://ics.chinasoftinc.com:8010/ehr_saas/web/attEmpLog/getAttEmpLogByEmpId2.empweb?",
                              data=data,
                              headers=header)
     return response.json()
@@ -87,6 +87,7 @@ if __name__ == '__main__':
         time.sleep(0.2)
     print("工作天数", dayNum)
     print("工作小时", hourNum)
+    print("平均工时", hourNum / dayNum)
     print("总需要 工作天数*8", dayNum * 8)
     print("总需要加班 工作天数*9", dayNum * 9)
     print("缺少小时 工作天数*8-工作小时", dayNum * 8 - hourNum)
