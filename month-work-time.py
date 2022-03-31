@@ -70,7 +70,7 @@ if __name__ == '__main__':
     hourNum = 0
     holNum = 0
 
-    for i in range(monthDayStart, monthDayEnd):
+    for i in range(monthDayStart, monthDayEnd + 1):
         response = _get_request(json.dumps({"dt": month + "-" + str(i) + " 00:00:00"}))
         attHolApplyList = response['result']['data']['attHolApplyList']
         dtDetailList = response['result']['data']['attEmpDetail']['dtDetailList']
